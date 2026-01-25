@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HMZ | Engineering & Security</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --bg: #050505;
+            --accent: #00ffcc;
+            --card-bg: #111111;
+            --text: #ffffff;
+            --subtext: #cccccc;
+            --font-main: "Roboto Condensed", sans-serif;
+            --gradient: linear-gradient(to top, rgba(0,0,0,0.9) 0%, transparent 100%);
+        }
+
+        [data-theme="light"] {
+            --bg: #f5f5f7;
+            --accent: #0071e3;
+            --card-bg: #ffffff;
+            --text: #1d1d1f;
+            --subtext: #424245;
+            --gradient: linear-gradient(to top, rgba(255,255,255,0.9) 0%, transparent 100%);
+        }
+
+        [data-theme="cyber"] {
+            --bg: #0d001a;
+            --accent: #bc13fe;
+            --card-bg: #1a0033;
+            --text: #f0e6ff;
+            --subtext: #b380ff;
+            --gradient: linear-gradient(to top, rgba(13,0,26,0.9) 0%, transparent 100%);
+        }
+
+        body { 
+            background: var(--bg); 
+            color: var(--text); 
+            font-family: var(--font-main); 
+            padding: 2rem;
+            margin: 0;
+            transition: background 0.5s ease;
+            overflow-x: hidden;
+        }
+
+        /* Custom Cursor */
+        #cursor {
+            width: 20px; height: 20px; background: var(--accent);
+            border-radius: 50%; position: fixed; pointer-events: none;
+            z-index: 9999; mix-blend-mode: difference; transition: transform 0.2s ease;
+            display: none;
+        }
+        @media (min-width: 900px) { #cursor { display: block; } body { cursor: none; } }
+
+        .theme-toggle {
+            position: fixed; top: 20px; right: 20px; z-index: 1000;
+            background: var(--card-bg); border: 1px solid var(--accent);
+            color: var(--text); padding: 10px 15px; border-radius: 50px;
+            cursor: pointer; display: flex; gap: 10px; align-items: center;
+            font-weight: bold; box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+        }
+
+        .bento-grid {
+            display: grid; grid-template-columns: repeat(4, 1fr);
+            grid-template-rows: repeat(2, 320px); gap: 1.5rem;
+            max-width: 1200px; margin: 4rem auto;
+        }
+
+        .bento-item {
+            background: var(--card-bg); border-radius: 24px;
+            position: relative; overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.1);
+            transition: 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+            text-decoration: none; display: block;
+            /* Initial state for reveal */
+            opacity: 0; transform: translateY(40px);
+        }
+
+        .bento-item.show { opacity: 1; transform: translateY(0); }
+
+        .bento-item:hover {
+            transform: translateY(-8px) scale(1.01);
+            border-color: var(--accent);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+        }
+
+        .card-image {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background-size: cover; background-position: center;
+            opacity: 0.35; transition: 0.6s ease; z-index: 1;
+        }
+
+        .bento-item:hover .card-image { opacity: 0.6; transform: scale(1.1); }
+
+        .card-content {
+            position: relative; z-index: 2; padding: 2.5rem;
+            height: 100%; display: flex; flex-direction: column;
+            justify-content: flex-end; background: var(--gradient);
+        }
+
+        h3 { font-size: 2.2rem; margin-bottom: 0.5rem; text-transform: uppercase; font-weight: 900; letter-spacing: -1px; }
+        p { color: var(--subtext); font-size: 1.1rem; font-weight: 400; }
+
+        .hero-box { grid-column: span 2; grid-row: span 2; }
+        .wide-box { grid-column: span 2; }
+
+        @media (max-width: 900px) {
+            .bento-grid { grid-template-columns: 1fr; grid-template-rows: auto; }
+            .hero-box, .wide-box { grid-column: span 1; height: 380px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="cursor"></div>
+
+    <button class="theme-toggle" onclick="toggleTheme()">
+        <i id="theme-icon" class="fas fa-moon"></i>
+        <span id="theme-text">Dark Mode</span>
+    </button>
+
+    <div class="bento-grid">
+        <a href="https://instagram.com/hmznumberuno" class="bento-item hero-box">
+            <div class="card-image" style="background-image: url('https://i.pinimg.com/736x/bf/d2/9e/bfd29ee40acd09a1d9b70feb66efaeaa.jpg');"></div>
+            <div class="card-content">
+                <span style="color:var(--accent); font-weight:bold; letter-spacing:2px;">OUSSAMA HMZ</span>
+                <h3>Software Architect & Security</h3>
+                <p>Developing high-performance systems in C++ and C#.</p>
+            </div>
+        </a>
+
+        <div class="bento-item wide-box">
+            <div class="card-image" style="background-image: url('https://i.pinimg.com/736x/7a/a4/20/7aa420199b79bff6566af8b0d9ecc38c.jpg');"></div>
+            <div class="card-content" style="justify-content: center;">
+                <h3>Tech Stack</h3>
+                <p>C++ 20 • .NET Core • Python • Assembly x64</p>
+            </div>
+        </div>
+
+        <a href="#cyber" class="bento-item">
+            <div class="card-image" style="background-image: url('https://i.pinimg.com/736x/75/16/9b/75169b99e9c91a5d43c6182b09ba3234.jpg');"></div>
+            <div class="card-content">
+                <i class="fas fa-shield-alt" style="color:var(--accent); font-size: 1.8rem; margin-bottom: 1rem;"></i>
+                <h3>Cyber Security</h3>
+                <p>OSINT & Vulnerability Research</p>
+            </div>
+        </a>
+
+        <div class="bento-item">
+            <div class="card-image" style="background-image: url('https://i.pinimg.com/736x/7b/86/00/7b86003b6ee71400c2ff69e1cbed8e4a.jpg');"></div>
+            <div class="card-content">
+                <i class="fas fa-code" style="color:var(--accent); font-size: 1.8rem; margin-bottom: 1rem;"></i>
+                <h3>Development</h3>
+                <p>Low-level optimization expert.</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 1. Theme Logic
+        let currentTheme = 'dark';
+        function toggleTheme() {
+            const body = document.body;
+            const icon = document.getElementById('theme-icon');
+            const text = document.getElementById('theme-text');
+            if (currentTheme === 'dark') {
+                body.setAttribute('data-theme', 'light');
+                currentTheme = 'light'; icon.className = 'fas fa-sun'; text.innerText = 'Light Mode';
+            } else if (currentTheme === 'light') {
+                body.setAttribute('data-theme', 'cyber');
+                currentTheme = 'cyber'; icon.className = 'fas fa-bolt'; text.innerText = 'Cyber Mode';
+            } else {
+                body.removeAttribute('data-theme');
+                currentTheme = 'dark'; icon.className = 'fas fa-moon'; text.innerText = 'Dark Mode';
+            }
+        }
+
+        // 2. Cursor Logic
+        const cursor = document.getElementById('cursor');
+        document.addEventListener('mousemove', e => {
+            cursor.style.left = e.clientX + 'px';
+            cursor.style.top = e.clientY + 'px';
+        });
+
+        // 3. Scroll Reveal Logic (Sequential)
+        window.addEventListener('DOMContentLoaded', () => {
+            const items = document.querySelectorAll('.bento-item');
+            items.forEach((item, index) => {
+                setTimeout(() => {
+                    item.classList.add('show');
+                }, 200 * index); // Every card pops after 200ms
+            });
+        });
+
+        // Cursor Grow effect on hover
+        document.querySelectorAll('.bento-item').forEach(item => {
+            item.addEventListener('mouseenter', () => cursor.style.transform = 'scale(2.5)');
+            item.addEventListener('mouseleave', () => cursor.style.transform = 'scale(1)');
+        });
+    </script>
+</body>
+</html>
