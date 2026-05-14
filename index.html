@@ -1,580 +1,357 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, viewport-fit=cover">
-  <title>Chinmeis • Profil privé</title>
-  <!-- Google Fonts + Font Awesome (icônes propres) -->
-  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      transition: background-color 0.25s ease, color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
-    }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
-    /* VARIABLES MODE CLAIR (par défaut) */
-    :root {
-      --bg-body: linear-gradient(145deg, #f0f2f5 0%, #eef0f5 100%);
-      --card-bg: #ffffff;
-      --text-primary: #0f172a;
-      --text-secondary: #6c6f85;
-      --text-muted: #4b5565;
-      --border-light: #f0e5dc;
-      --private-bg: #fefaf5;
-      --lock-color: #8e9aaf;
-      --btn-follow: #0095f6;
-      --btn-follow-hover: #1877f2;
-      --footer-color: #a5b3cc;
-      --avatar-border: #ffffff;
-      --stat-number: #0f172a;
-      --shadow-card: 0 20px 40px -12px rgba(0, 0, 0, 0.15), 0 1px 2px rgba(0, 0, 0, 0.03);
-      --private-border: 1px solid #f0e5dc;
-      --modal-bg: white;
-    }
+  <title>2M LIVE TV</title>
 
-    /* VARIABLES MODE SOMBRE */
-    body.dark {
-      --bg-body: #0a0c12;
-      --card-bg: #12151e;
-      --text-primary: #f1f5f9;
-      --text-secondary: #9ca3af;
-      --text-muted: #b9c2d4;
-      --border-light: #2a2f3a;
-      --private-bg: #1a1e2a;
-      --lock-color: #8d9fcf;
-      --btn-follow: #1d9bf0;
-      --btn-follow-hover: #3aa6f5;
-      --footer-color: #5f6c84;
-      --avatar-border: #2d3440;
-      --stat-number: #f1f5f9;
-      --shadow-card: 0 20px 35px -12px rgba(0, 0, 0, 0.5);
-      --private-border: 1px solid #2a3040;
-      --modal-bg: #1e2432;
-    }
+  <link rel="stylesheet" href="stream.css">
 
-    body {
-      background: var(--bg-body);
-      font-family: 'Inter', sans-serif;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      min-height: 100vh;
-      padding: 1.5rem;
-    }
-
-    /* Carte principale */
-    .profile-card {
-      max-width: 500px;
-      width: 100%;
-      background: var(--card-bg);
-      border-radius: 2rem;
-      box-shadow: var(--shadow-card);
-      overflow: hidden;
-      transition: background 0.2s, box-shadow 0.2s;
-    }
-
-    .inner-padding {
-      padding: 2rem 1.8rem 2rem 1.8rem;
-    }
-
-    /* ===== HEADER : avatar & stats ===== */
-    .profile-header {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      text-align: center;
-      margin-bottom: 1.5rem;
-    }
-
-    .avatar-circle {
-      width: 110px;
-      height: 110px;
-      background: linear-gradient(145deg, #f7b42c, #fc575e);
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin-bottom: 0.9rem;
-      box-shadow: 0 12px 20px -8px rgba(0, 0, 0, 0.25);
-      cursor: pointer;
-      transition: transform 0.2s;
-    }
-
-    .avatar-circle:hover {
-      transform: scale(1.02);
-    }
-
-    .avatar-inner {
-      width: 100px;
-      height: 100px;
-      background: var(--avatar-border);
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      overflow: hidden;
-      background-color: #fff;
-    }
-
-    /* image logo (la photo demandée) */
-    .avatar-inner img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-    }
-
-    .display-name {
-      font-size: 1.8rem;
-      font-weight: 800;
-      letter-spacing: -0.3px;
-      background: linear-gradient(135deg, #e2e8f0, #b9c8ff);
-      background-clip: text;
-      -webkit-background-clip: text;
-      color: transparent;
-      margin-bottom: 0.2rem;
-    }
-
-    .username {
-      font-size: 0.9rem;
-      font-weight: 500;
-      color: var(--text-secondary);
-      margin-bottom: 0.5rem;
-    }
-
-    /* stats */
-    .stats-row {
-      display: flex;
-      justify-content: center;
-      gap: 2rem;
-      margin: 0.8rem 0 0.2rem;
-    }
-
-    .stat-item {
-      text-align: center;
-    }
-
-    .stat-number {
-      font-weight: 800;
-      font-size: 1.35rem;
-      color: var(--stat-number);
-    }
-
-    .stat-label {
-      font-size: 0.8rem;
-      font-weight: 500;
-      color: var(--text-secondary);
-      margin-left: 0.2rem;
-    }
-
-    /* BLOC PROFIL PRIVÉ */
-    .private-container {
-      background: var(--private-bg);
-      border-radius: 1.5rem;
-      padding: 1.8rem 1.2rem;
-      margin-top: 1rem;
-      text-align: center;
-      border: var(--private-border);
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.02);
-    }
-
-    .lock-icon {
-      font-size: 2.8rem;
-      color: var(--lock-color);
-      margin-bottom: 0.8rem;
-    }
-
-    .private-title {
-      font-size: 1.3rem;
-      font-weight: 700;
-      color: var(--text-primary);
-      margin-bottom: 0.5rem;
-    }
-
-    .private-message {
-      font-size: 0.9rem;
-      color: var(--text-muted);
-      line-height: 1.4;
-      margin-bottom: 1.3rem;
-    }
-
-    .btn-follow {
-      background: var(--btn-follow);
-      border: none;
-      color: white;
-      font-weight: 600;
-      font-size: 0.9rem;
-      padding: 0.65rem 1.6rem;
-      border-radius: 2rem;
-      cursor: pointer;
-      font-family: 'Inter', sans-serif;
-      display: inline-flex;
-      align-items: center;
-      gap: 0.6rem;
-      transition: all 0.2s ease;
-      box-shadow: 0 2px 6px rgba(0, 149, 246, 0.25);
-    }
-
-    .btn-follow:hover {
-      background: var(--btn-follow-hover);
-      transform: translateY(-1px);
-    }
-
-    /* TOGGLE DARK MODE (interrupteur flottant) */
-    .darkmode-toggle {
-      position: fixed;
-      bottom: 24px;
-      right: 24px;
-      background: var(--card-bg);
-      width: 52px;
-      height: 52px;
-      border-radius: 60px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
-      border: 1px solid var(--border-light);
-      z-index: 1000;
-      transition: all 0.2s;
-      backdrop-filter: blur(4px);
-    }
-
-    .darkmode-toggle i {
-      font-size: 1.6rem;
-      color: var(--text-primary);
-    }
-
-    .darkmode-toggle:hover {
-      transform: scale(1.05);
-    }
-
-    /* footer */
-    .footer-note {
-      text-align: center;
-      font-size: 0.7rem;
-      color: var(--footer-color);
-      margin-top: 1.8rem;
-      padding-top: 0.8rem;
-      border-top: 1px solid var(--border-light);
-    }
-
-    /* MODAL (connexion simulation) */
-    .modal-overlay {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0, 0, 0, 0.8);
-      backdrop-filter: blur(8px);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      z-index: 2000;
-      visibility: hidden;
-      opacity: 0;
-      transition: visibility 0.2s, opacity 0.2s;
-    }
-
-    .modal-overlay.active {
-      visibility: visible;
-      opacity: 1;
-    }
-
-    .modal-card {
-      background: var(--modal-bg);
-      max-width: 320px;
-      width: 85%;
-      border-radius: 1.8rem;
-      padding: 1.8rem 1.2rem 1.5rem;
-      text-align: center;
-      box-shadow: 0 25px 40px rgba(0, 0, 0, 0.4);
-      border: 1px solid var(--border-light);
-    }
-
-    .modal-card i {
-      font-size: 2.5rem;
-      color: #1d9bf0;
-      margin-bottom: 0.8rem;
-    }
-
-    .modal-card h4 {
-      font-size: 1.3rem;
-      margin-bottom: 0.5rem;
-      color: var(--text-primary);
-    }
-
-    .modal-card p {
-      font-size: 0.85rem;
-      color: var(--text-secondary);
-      margin-bottom: 1.2rem;
-    }
-
-    .close-modal-btn {
-      background: #2d3e5f;
-      border: none;
-      padding: 0.5rem 1.2rem;
-      border-radius: 2rem;
-      font-weight: 600;
-      cursor: pointer;
-      color: white;
-    }
-
-    /* Responsive : téléphone & pc */
-    @media (max-width: 550px) {
-      body {
-        padding: 1rem;
-      }
-      .inner-padding {
-        padding: 1.5rem 1.2rem;
-      }
-      .stats-row {
-        gap: 1.2rem;
-      }
-      .display-name {
-        font-size: 1.5rem;
-      }
-      .avatar-circle {
-        width: 90px;
-        height: 90px;
-      }
-      .avatar-inner {
-        width: 82px;
-        height: 82px;
-      }
-      .darkmode-toggle {
-        bottom: 18px;
-        right: 18px;
-        width: 46px;
-        height: 46px;
-      }
-      .private-title {
-        font-size: 1.2rem;
-      }
-    }
-
-    /* petit toast */
-    .simple-toast {
-      position: fixed;
-      bottom: 90px;
-      left: 50%;
-      transform: translateX(-50%);
-      background: #1f2937e6;
-      backdrop-filter: blur(12px);
-      color: #f0f3fa;
-      font-size: 0.75rem;
-      padding: 0.55rem 1.2rem;
-      border-radius: 40px;
-      z-index: 2100;
-      font-family: monospace;
-      white-space: nowrap;
-      pointer-events: none;
-      font-weight: 500;
-    }
-
-    @media (max-width: 450px) {
-      .simple-toast {
-        white-space: normal;
-        text-align: center;
-        width: 80%;
-        bottom: 80px;
-        font-size: 0.7rem;
-      }
-    }
-  </style>
+  <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
 </head>
 <body>
 
-<div class="profile-card">
-  <div class="inner-padding">
-    <!-- HEADER PROFIL avec la NOUVELLE PHOTO (logo) -->
-    <div class="profile-header">
-      <div class="avatar-circle">
-        <div class="avatar-inner">
-          <!-- Image officielle (logo) provenant du lien Pinterest -->
-          <img id="profileLogoImg" src="https://i.pinimg.com/474x/1c/7f/ce/1c7fce9d531410402cacff409c0a8022.jpg" alt="chinmeis logo">
-        </div>
+  <div class="background"></div>
+
+  <div class="container">
+
+    <div class="topBar">
+
+      <div class="logo">
+        2M LIVE
       </div>
-      <div class="display-name">chinmeis</div>
-      <div class="username">@chinmeis · she/her</div>
-      
-      <!-- STATS : 0 publications, 25 followers, 25 suivi(e)s -->
-      <div class="stats-row">
-        <div class="stat-item">
-          <span class="stat-number">0</span>
-          <span class="stat-label">publications</span>
-        </div>
-        <div class="stat-item">
-          <span class="stat-number">25</span>
-          <span class="stat-label">followers</span>
-        </div>
-        <div class="stat-item">
-          <span class="stat-number">25</span>
-          <span class="stat-label">suivi(e)s</span>
-        </div>
+
+      <div class="liveBadge">
+        <div class="dot"></div>
+        LIVE
       </div>
+
     </div>
 
-    <!-- BLOC PROFIL PRIVÉ (message exact) -->
-    <div class="private-container">
-      <div class="lock-icon">
-        <i class="fas fa-lock"></i>
-      </div>
-      <div class="private-title">Ce profil est privé</div>
-      <div class="private-message">
-        Vous suivez déjà <strong>chinmeis</strong> ? <br>
-        Connectez-vous pour voir ses photos et vidéos.
-      </div>
-      <button class="btn-follow" id="connectActionBtn">
-        <i class="fas fa-sign-in-alt"></i> Se connecter
+    <div class="videoBox">
+
+      <video
+        id="video"
+        autoplay
+        muted
+        playsinline
+        controls
+      ></video>
+
+    </div>
+
+    <div class="controls">
+
+      <button id="autoQuality">
+        AUTO HD
       </button>
+
+      <button id="lowQuality">
+        LOW QUALITY
+      </button>
+
     </div>
 
-    <div class="footer-note">
-      <i class="fab fa-instagram"></i> Instagram · chinmeis · profil privé
+    <div class="bottomBar">
+
+      <div class="channelName">
+        2M Maroc HD
+      </div>
+
+      <div class="status">
+        Stream Online
+      </div>
+
     </div>
+
   </div>
-</div>
 
-<!-- Bouton Dark Mode flottant (fonctionne parfaitement PC & mobile) -->
-<div class="darkmode-toggle" id="darkModeToggle">
-  <i class="fas fa-moon"></i>
-</div>
+  <script src="stream.js"></script>
 
-<!-- Modal simulation connexion -->
-<div id="demoModal" class="modal-overlay">
-  <div class="modal-card">
-    <i class="fas fa-comment-dots"></i>
-    <h4>Compte privé</h4>
-    <p>🔒 Pour voir les photos de <strong>chinmeis</strong>, tu dois suivre et te connecter. (simulation)</p>
-    <button class="close-modal-btn" id="closeModalBtn">Fermer</button>
-  </div>
-</div>
-
-<script>
-  // ---------- 1. GESTION DU MODE SOMBRE (dark mode) ----------
-  const toggleBtn = document.getElementById('darkModeToggle');
-  const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-  
-  // Vérifier le localStorage
-  let isDark = localStorage.getItem('chinmeisDarkMode');
-  if (isDark === null) {
-    // Si pas de préférence, on utilise le système
-    isDark = prefersDark;
-  } else {
-    isDark = isDark === 'true';
-  }
-  
-  function applyDarkMode(enable) {
-    if (enable) {
-      document.body.classList.add('dark');
-      if (toggleBtn) {
-        toggleBtn.innerHTML = '<i class="fas fa-sun"></i>';
-      }
-      localStorage.setItem('chinmeisDarkMode', 'true');
-    } else {
-      document.body.classList.remove('dark');
-      if (toggleBtn) {
-        toggleBtn.innerHTML = '<i class="fas fa-moon"></i>';
-      }
-      localStorage.setItem('chinmeisDarkMode', 'false');
-    }
-  }
-  
-  applyDarkMode(isDark);
-  
-  if (toggleBtn) {
-    toggleBtn.addEventListener('click', () => {
-      const nowDark = document.body.classList.contains('dark');
-      applyDarkMode(!nowDark);
-      // petit effet visuel supplémentaire (toast optionnel)
-      showToastMessage(`Mode ${!nowDark ? 'sombre' : 'clair'} activé 🌓`, 1000);
-    });
-  }
-  
-  // ---------- 2. GESTION PHOTO (logo) : s'assurer que l'image s'affiche bien,
-  // fallback si le lien venait à échouer (mais généralement pinterest fonctionne)
-  const profileImage = document.getElementById('profileLogoImg');
-  if (profileImage) {
-    profileImage.onerror = function() {
-      // fallback élégant : texte ou icône, mais on garde l'aspect logo
-      this.onerror = null;
-      this.src = "https://ui-avatars.com/api/?background=9b59b6&color=fff&rounded=true&size=100&name=CM";
-      this.alt = "chinmeis fallback avatar";
-    };
-  }
-  
-  // ---------- 3. INTERACTIONS MODAL (simulation connexion / follow) ----------
-  const connectBtn = document.getElementById('connectActionBtn');
-  const modal = document.getElementById('demoModal');
-  const closeModalBtn = document.getElementById('closeModalBtn');
-  
-  function openModal() {
-    if (modal) {
-      modal.classList.add('active');
-      document.body.style.overflow = 'hidden';
-    }
-  }
-  
-  function closeModal() {
-    if (modal) {
-      modal.classList.remove('active');
-      document.body.style.overflow = '';
-    }
-  }
-  
-  if (connectBtn) {
-    connectBtn.addEventListener('click', (e) => {
-      e.preventDefault();
-      openModal();
-    });
-  }
-  
-  if (closeModalBtn) {
-    closeModalBtn.addEventListener('click', closeModal);
-  }
-  
-  // Fermer le modal si clic à l'extérieur
-  modal?.addEventListener('click', (e) => {
-    if (e.target === modal) closeModal();
-  });
-  
-  // ---------- 4. PETITE NOTIFICATION TOAST (utile pour les interactions) ----------
-  function showToastMessage(msg, duration = 1800) {
-    let existing = document.querySelector('.simple-toast');
-    if (existing) existing.remove();
-    const toast = document.createElement('div');
-    toast.className = 'simple-toast';
-    toast.innerText = msg;
-    document.body.appendChild(toast);
-    setTimeout(() => {
-      toast.style.opacity = '0';
-      setTimeout(() => toast.remove(), 300);
-    }, duration);
-  }
-  
-  // Ajout d'un petit effet sur l'avatar : rappel que le profil est privé
-  const avatarCircle = document.querySelector('.avatar-circle');
-  if (avatarCircle) {
-    avatarCircle.addEventListener('click', () => {
-      showToastMessage("🔒 Compte privé · Rejoins chinmeis pour découvrir ses publications", 1700);
-    });
-  }
-  
-  // ---------- 5. RENDRE LE SITE PARFAITEMENT RESPONSIVE (déjà géré par CSS)
-  // Aucun bug : les statistiques sont 0 publications / 25 followers / 25 suivi(e)s
-  // Le message "Ce profil est privé" est bien présent, aucun post, aucune galerie
-  
-  // Bonus: Le lien de l'image est totalement intégré comme logo, dark mode change aussi les bordures
-  // Tout fonctionne sur mobile et PC.
-  
-  // Petite précision : on s'assure que le mode sombre conserve tous les contrastes et que le toggle est bien visible
-  // Pour les appareils tactiles, le bouton est assez grand.
-  console.log('✨ Site parfait : logo ajouté, dark mode, stats 0 / 25 / 25, profil privé');
-</script>
 </body>
 </html>
+<style>
+  *{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+body{
+  background:#050505;
+  font-family:Arial, sans-serif;
+
+  display:flex;
+  justify-content:center;
+  align-items:center;
+
+  min-height:100vh;
+
+  padding:20px;
+
+  overflow-x:hidden;
+}
+
+.background{
+  position:fixed;
+  inset:0;
+
+  background:
+  radial-gradient(circle at top left,#ff000020,transparent 30%),
+  radial-gradient(circle at bottom right,#ff000015,transparent 30%);
+
+  z-index:-1;
+}
+
+.container{
+  width:100%;
+  max-width:1100px;
+
+  background:#111;
+
+  border-radius:25px;
+
+  overflow:hidden;
+
+  border:1px solid rgba(255,255,255,.05);
+
+  box-shadow:
+  0 0 60px rgba(255,0,0,.15);
+}
+
+.topBar{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+
+  padding:20px;
+
+  background:#181818;
+}
+
+.logo{
+  color:white;
+
+  font-size:28px;
+  font-weight:bold;
+
+  letter-spacing:2px;
+}
+
+.liveBadge{
+  background:red;
+
+  color:white;
+
+  padding:10px 18px;
+
+  border-radius:50px;
+
+  display:flex;
+  align-items:center;
+  gap:10px;
+
+  font-weight:bold;
+}
+
+.dot{
+  width:10px;
+  height:10px;
+
+  background:white;
+
+  border-radius:50%;
+
+  animation:pulse 1s infinite;
+}
+
+@keyframes pulse{
+
+  0%{
+    transform:scale(1);
+    opacity:1;
+  }
+
+  50%{
+    transform:scale(1.5);
+    opacity:.5;
+  }
+
+  100%{
+    transform:scale(1);
+    opacity:1;
+  }
+}
+
+.videoBox{
+  position:relative;
+  background:black;
+}
+
+video{
+  width:100%;
+  display:block;
+  background:black;
+}
+
+.controls{
+  display:flex;
+  gap:15px;
+
+  padding:20px;
+
+  background:#141414;
+}
+
+button{
+  flex:1;
+
+  padding:15px;
+
+  border:none;
+
+  border-radius:12px;
+
+  background:#ff0000;
+
+  color:white;
+
+  font-size:16px;
+  font-weight:bold;
+
+  cursor:pointer;
+
+  transition:.3s;
+}
+
+button:hover{
+  transform:translateY(-2px);
+  opacity:.9;
+}
+
+.bottomBar{
+  padding:18px 20px;
+
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+
+  background:#181818;
+}
+
+.channelName{
+  color:white;
+
+  font-size:20px;
+  font-weight:bold;
+}
+
+.status{
+  color:#00ff73;
+
+  font-size:15px;
+}
+
+@media(max-width:700px){
+
+  .topBar,
+  .bottomBar{
+    flex-direction:column;
+    gap:15px;
+    text-align:center;
+  }
+
+  .controls{
+    flex-direction:column;
+  }
+
+  .logo{
+    font-size:22px;
+  }
+
+}
+</style>
+<script>
+  const video = document.getElementById("video");
+
+const autoBtn = document.getElementById("autoQuality");
+
+const lowBtn = document.getElementById("lowQuality");
+
+/*
+STREAM LINKS
+*/
+
+const masterStream =
+"https://stream-lb.livemediama.com/2m/hls/master.m3u8";
+
+const lowStream =
+"https://stream-lb.livemediama.com/2m/hls/stream_3/playlist.m3u8";
+
+let hls;
+
+function loadStream(stream){
+
+  if(hls){
+    hls.destroy();
+  }
+
+  if(Hls.isSupported()){
+
+    hls = new Hls({
+
+      liveSyncDuration:2,
+
+      maxBufferLength:8,
+
+      lowLatencyMode:true,
+
+      enableWorker:true
+
+    });
+
+    hls.loadSource(stream);
+
+    hls.attachMedia(video);
+
+    hls.on(Hls.Events.MANIFEST_PARSED, function(){
+
+      video.play();
+
+    });
+
+  }else if(video.canPlayType('application/vnd.apple.mpegurl')){
+
+    video.src = stream;
+
+    video.addEventListener('loadedmetadata', function(){
+
+      video.play();
+
+    });
+  }
+}
+
+/*
+DEFAULT QUALITY
+*/
+
+loadStream(masterStream);
+
+/*
+BUTTON EVENTS
+*/
+
+autoBtn.addEventListener("click", function(){
+
+  loadStream(masterStream);
+
+});
+
+lowBtn.addEventListener("click", function(){
+
+  loadStream(lowStream);
+
+});
+</script>
