@@ -2,537 +2,90 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>2M MAROC | LIVE TV Streaming</title>
-    <link rel="stylesheet" href="stream.css">
-    <script src="https://cdn.jsdelivr.net/npm/hls.js@1.5.17/dist/hls.min.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chinmeis | Creative Designer</title>
+    <style>
+        :root {
+            --primary: #00ff85; /* لون رجاوي مطور */
+            --dark: #0a0a0a;
+            --card: #1a1a1a;
+        }
+        body {
+            background-color: var(--dark);
+            color: white;
+            font-family: 'Segoe UI', sans-serif;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+        }
+        .container {
+            text-align: center;
+            padding: 20px;
+            max-width: 600px;
+        }
+        .profile-img {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            border: 3px solid var(--primary);
+            margin-bottom: 20px;
+        }
+        h1 { margin: 10px 0; font-size: 2rem; }
+        p { color: #aaa; line-height: 1.6; }
+        .skills {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin: 20px 0;
+        }
+        .skill-tag {
+            background: var(--card);
+            padding: 5px 15px;
+            border-radius: 20px;
+            border: 1px solid var(--primary);
+            font-size: 0.8rem;
+        }
+        .btn {
+            background: var(--primary);
+            color: black;
+            padding: 12px 25px;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+        .btn:hover { opacity: 0.8; transform: scale(1.05); }
+    </style>
 </head>
 <body>
-    <div class="tv-container">
-        <!-- Header -->
-        <div class="tv-header">
-            <div class="channel-info">
-                <div class="live-badge">
-                    <span class="live-dot"></span>
-                    LIVE
-                </div>
-                <span class="channel-name">2M MAROC</span>
-            </div>
-            <div class="quality-switch">
-                <button class="quality-btn active" data-quality="master">HD+</button>
-                <button class="quality-btn" data-quality="second">SD</button>
-            </div>
+
+    <div class="container">
+        <img src="https://scontent-bcn1-1.cdninstagram.com/v/t51.82787-19/671807321_17877065517604281_8295069233748658848_n.jpg?_nc_cat=108&ccb=7-5&_nc_sid=bf7eb4&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLnd3dy4xMDgwLkMzIn0%3D&_nc_ohc=NfqEcMiodu4Q7kNvwHReBXq&_nc_oc=AdqxZ7oUYveMO9cXHdGdbq4T4b71x0C-qi72hXc_HwGQrDX5ShkCR8IxPnQytWgtqkA&_nc_zt=24&_nc_ht=scontent-bcn1-1.cdninstagram.com&_nc_gid=gYAO2qvzi94_kmKOYXZ_lQ&_nc_ss=796a8&oh=00_Af6DmMfYspOlEJA9t5qPagzMTiA4zhDYtw3-kwNEB631SA&oe=6A0CD26D" alt="Hamza" class="profile-img">
+        <h1>Chinmeis : </h1>
+        <p>Creative UI Designer & Lua Developer. Specialized in creating high-quality GIFs, motion graphics, and interactive digital experiences.</p>
+        
+        <div class="skills">
+            <div class="skill-tag">UI Design</div>
+            <div class="skill-tag">Lua</div>
+            <div class="skill-tag">Motion Graphics</div>
         </div>
 
-        <!-- Video Player -->
-        <div class="player-wrapper">
-            <video id="live-video" class="video-element" playsinline autoplay muted>
-                <source src="">
-            </video>
-            <div id="loading-overlay" class="loading-overlay">
-                <div class="spinner"></div>
-                <div class="loading-text">LOADING STREAM</div>
-            </div>
-            <div id="play-overlay" class="play-overlay hidden">
-                <div class="play-icon">▶</div>
-                <span>Click to watch LIVE</span>
-            </div>
-        </div>
-
-        <!-- Footer Info -->
-        <div class="stream-footer">
-            <div class="stream-quality">
-                <span></span>
-                <span id="quality-text"> </span>
-            </div>
-            <div class="stream-info">
-                <span> </span>
-                <span> Live By @chinmeis</span>
-            </div>
-        </div>
+        <a href="https://giphy.com/channel/chinmeis" class="btn">View My GIPHY Channel</a>
     </div>
 
-    <script src="stream.js"></script>
+    <script>
+        // تأثير بسيط ملي كتحل الصفحة
+        document.addEventListener('DOMContentLoaded', () => {
+            console.log("Portfolio Loaded Successfully!");
+            document.querySelector('.container').style.opacity = '0';
+            setTimeout(() => {
+                document.querySelector('.container').style.transition = 'opacity 1s';
+                document.querySelector('.container').style.opacity = '1';
+            }, 100);
+        });
+    </script>
 </body>
 </html>
-<style>
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-body {
-    background: #000000;
-    font-family: 'Segoe UI', 'Roboto', system-ui, -apple-system, sans-serif;
-    min-height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 16px;
-    background: radial-gradient(circle at 30% 20%, #0a0a0a, #000000);
-}
-
-.tv-container {
-    max-width: 1300px;
-    width: 100%;
-    margin: 0 auto;
-    background: #0f0f0f;
-    border-radius: 28px;
-    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.8), 0 0 0 1px rgba(255, 255, 255, 0.06);
-    overflow: hidden;
-}
-
-/* Header */
-.tv-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 18px 24px;
-    background: linear-gradient(135deg, #111111, #0a0a0a);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-    flex-wrap: wrap;
-    gap: 12px;
-}
-
-.channel-info {
-    display: flex;
-    align-items: center;
-    gap: 16px;
-}
-
-.live-badge {
-    background: #e50914;
-    color: white;
-    font-weight: 800;
-    font-size: 0.85rem;
-    padding: 6px 14px;
-    border-radius: 40px;
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    animation: livePulse 1.5s infinite;
-    text-transform: uppercase;
-}
-
-.live-dot {
-    width: 10px;
-    height: 10px;
-    background-color: white;
-    border-radius: 50%;
-    display: inline-block;
-    animation: blink 1s step-end infinite;
-}
-
-@keyframes blink {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0.3; }
-}
-
-@keyframes livePulse {
-    0% { box-shadow: 0 0 0 0 rgba(229, 9, 20, 0.5); }
-    70% { box-shadow: 0 0 0 8px rgba(229, 9, 20, 0); }
-    100% { box-shadow: 0 0 0 0 rgba(229, 9, 20, 0); }
-}
-
-.channel-name {
-    color: #f1f1f1;
-    font-weight: 600;
-    font-size: 1.2rem;
-    background: rgba(255,255,255,0.05);
-    padding: 5px 15px;
-    border-radius: 30px;
-}
-
-/* Quality Buttons */
-.quality-switch {
-    display: flex;
-    gap: 12px;
-    background: rgba(20, 20, 20, 0.8);
-    padding: 5px;
-    border-radius: 60px;
-}
-
-.quality-btn {
-    background: transparent;
-    border: none;
-    padding: 8px 22px;
-    border-radius: 40px;
-    font-weight: 700;
-    font-size: 0.85rem;
-    cursor: pointer;
-    transition: all 0.25s ease;
-    color: #cccccc;
-    font-family: inherit;
-}
-
-.quality-btn.active {
-    background: #e50914;
-    color: white;
-    box-shadow: 0 4px 12px rgba(229, 9, 20, 0.3);
-}
-
-.quality-btn:not(.active):hover {
-    background: rgba(255, 255, 255, 0.12);
-    color: white;
-}
-
-/* Player */
-.player-wrapper {
-    position: relative;
-    background-color: #000;
-    width: 100%;
-}
-
-.video-element {
-    width: 100%;
-    height: auto;
-    min-height: 380px;
-    max-height: 60vh;
-    display: block;
-    background: #000;
-    cursor: pointer;
-    object-fit: contain;
-}
-
-/* Loading */
-.loading-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.9);
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    z-index: 10;
-    transition: opacity 0.3s;
-    gap: 18px;
-}
-
-.loading-overlay.hidden {
-    opacity: 0;
-    visibility: hidden;
-}
-
-.spinner {
-    width: 50px;
-    height: 50px;
-    border: 3px solid rgba(229, 9, 20, 0.2);
-    border-top: 3px solid #e50914;
-    border-right: 3px solid #e50914;
-    border-radius: 50%;
-    animation: spin 0.8s linear infinite;
-}
-
-@keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-}
-
-.loading-text {
-    color: white;
-    font-weight: 600;
-    letter-spacing: 2px;
-    font-size: 0.8rem;
-    background: rgba(0,0,0,0.7);
-    padding: 6px 14px;
-    border-radius: 30px;
-}
-
-/* Play Overlay */
-.play-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.8);
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    z-index: 15;
-    cursor: pointer;
-    gap: 12px;
-}
-
-.play-overlay.hidden {
-    display: none;
-}
-
-.play-icon {
-    background: #e50914;
-    width: 70px;
-    height: 70px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 32px;
-    color: white;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.4);
-    transition: transform 0.2s;
-}
-
-.play-overlay:hover .play-icon {
-    transform: scale(1.08);
-}
-
-.play-overlay span {
-    color: white;
-    background: rgba(0,0,0,0.6);
-    padding: 6px 18px;
-    border-radius: 40px;
-    font-size: 0.85rem;
-}
-
-/* Footer */
-.stream-footer {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 12px 24px;
-    background: #0a0a0a;
-    border-top: 1px solid rgba(255,255,255,0.05);
-    font-size: 0.75rem;
-    color: #888;
-}
-
-.stream-quality, .stream-info {
-    display: flex;
-    gap: 12px;
-    align-items: center;
-}
-
-/* Responsive */
-@media (max-width: 768px) {
-    body {
-        padding: 10px;
-    }
-    
-    .tv-header {
-        padding: 12px 16px;
-        flex-direction: column;
-        align-items: stretch;
-    }
-    
-    .channel-info {
-        justify-content: space-between;
-    }
-    
-    .quality-switch {
-        justify-content: center;
-    }
-    
-    .quality-btn {
-        padding: 6px 18px;
-        font-size: 0.75rem;
-    }
-    
-    .channel-name {
-        font-size: 1rem;
-    }
-    
-    .video-element {
-        min-height: 240px;
-    }
-    
-    .play-icon {
-        width: 55px;
-        height: 55px;
-        font-size: 26px;
-    }
-    
-    .stream-footer {
-        padding: 10px 16px;
-        flex-direction: column;
-        gap: 6px;
-    }
-}
-
-@media (max-width: 480px) {
-    .video-element {
-        min-height: 200px;
-    }
-}
-
-</style>
-<script>
-  // Stream URLs
-const STREAMS = {
-    master: "https://stream-lb.livemediama.com/2m/hls/master.m3u8",
-    second: "https://stream-lb.livemediama.com/2m/hls/stream_3/playlist.m3u8"
-};
-
-let currentQuality = "master";
-let hls = null;
-let videoElement = null;
-
-// Initialize HLS Player
-function initPlayer() {
-    if (!videoElement) return;
-    
-    const streamUrl = STREAMS[currentQuality];
-    const qualityText = currentQuality === "master" ? "HD+ Quality" : "SD Quality";
-    const qualityTextElem = document.getElementById("quality-text");
-    if (qualityTextElem) qualityTextElem.textContent = qualityText;
-    
-    const loadingOverlay = document.getElementById("loading-overlay");
-    if (loadingOverlay) loadingOverlay.classList.remove("hidden");
-    
-    // Native HLS (Safari)
-    if (videoElement.canPlayType("application/vnd.apple.mpegurl")) {
-        videoElement.src = streamUrl;
-        videoElement.load();
-        videoElement.play().catch(() => {});
-        setTimeout(() => {
-            if (loadingOverlay) loadingOverlay.classList.add("hidden");
-        }, 1500);
-    }
-    // HLS.js
-    else if (Hls && Hls.isSupported()) {
-        if (hls) {
-            hls.destroy();
-        }
-        hls = new Hls({
-            enableWorker: true,
-            lowLatencyMode: true,
-            maxBufferLength: 30,
-            manifestLoadingTimeOut: 10000,
-            manifestLoadingMaxRetry: 3,
-        });
-        
-        hls.attachMedia(videoElement);
-        hls.on(Hls.Events.MEDIA_ATTACHED, () => {
-            hls.loadSource(streamUrl);
-        });
-        
-        hls.on(Hls.Events.MANIFEST_PARSED, () => {
-            videoElement.play().catch(() => {});
-            setTimeout(() => {
-                if (loadingOverlay) loadingOverlay.classList.add("hidden");
-            }, 1000);
-        });
-        
-        hls.on(Hls.Events.ERROR, (event, data) => {
-            if (data.fatal) {
-                console.error("Fatal error, reloading...");
-                if (loadingOverlay) loadingOverlay.classList.remove("hidden");
-                setTimeout(() => reloadStream(), 2000);
-            } else if (data.details === "bufferStalledError") {
-                if (loadingOverlay) loadingOverlay.classList.remove("hidden");
-            }
-        });
-        
-        hls.on(Hls.Events.BUFFER_CREATED, () => {
-            setTimeout(() => {
-                if (loadingOverlay) loadingOverlay.classList.add("hidden");
-            }, 500);
-        });
-    }
-    // Fallback
-    else {
-        videoElement.src = streamUrl;
-        videoElement.load();
-        videoElement.play().catch(() => {});
-        setTimeout(() => {
-            if (loadingOverlay) loadingOverlay.classList.add("hidden");
-        }, 2000);
-    }
-}
-
-function reloadStream() {
-    if (hls) {
-        hls.destroy();
-        hls = null;
-    }
-    initPlayer();
-}
-
-function switchQuality(quality) {
-    if (currentQuality === quality) return;
-    currentQuality = quality;
-    
-    // Update active button
-    const masterBtn = document.querySelector("[data-quality='master']");
-    const secondBtn = document.querySelector("[data-quality='second']");
-    if (masterBtn && secondBtn) {
-        if (quality === "master") {
-            masterBtn.classList.add("active");
-            secondBtn.classList.remove("active");
-        } else {
-            secondBtn.classList.add("active");
-            masterBtn.classList.remove("active");
-        }
-    }
-    
-    reloadStream();
-}
-
-// DOM Ready
-document.addEventListener("DOMContentLoaded", () => {
-    videoElement = document.getElementById("live-video");
-    
-    // Initialize player
-    initPlayer();
-    
-    // Quality buttons
-    const masterBtn = document.querySelector("[data-quality='master']");
-    const secondBtn = document.querySelector("[data-quality='second']");
-    
-    if (masterBtn) {
-        masterBtn.addEventListener("click", () => switchQuality("master"));
-    }
-    if (secondBtn) {
-        secondBtn.addEventListener("click", () => switchQuality("second"));
-    }
-    
-    // Autoplay handling
-    videoElement.muted = true;
-    videoElement.autoplay = true;
-    videoElement.playsInline = true;
-    
-    const playOverlay = document.getElementById("play-overlay");
-    const autoplayPromise = videoElement.play();
-    if (autoplayPromise !== undefined) {
-        autoplayPromise.catch(() => {
-            if (playOverlay) playOverlay.classList.remove("hidden");
-        });
-    }
-    
-    // Play overlay click
-    if (playOverlay) {
-        playOverlay.addEventListener("click", () => {
-            videoElement.muted = false;
-            videoElement.play().then(() => {
-                playOverlay.classList.add("hidden");
-            }).catch(() => {});
-        });
-    }
-    
-    // Video events
-    const loadingOverlay = document.getElementById("loading-overlay");
-    videoElement.addEventListener("playing", () => {
-        if (loadingOverlay) loadingOverlay.classList.add("hidden");
-        if (playOverlay) playOverlay.classList.add("hidden");
-    });
-    
-    videoElement.addEventListener("waiting", () => {
-        if (loadingOverlay) loadingOverlay.classList.remove("hidden");
-    });
-    
-    videoElement.addEventListener("error", () => {
-        setTimeout(() => reloadStream(), 2000);
-    });
-});
-
-// Cleanup
-window.addEventListener("beforeunload", () => {
-    if (hls) {
-        hls.destroy();
-    }
-});
-</script>
