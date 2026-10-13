@@ -3,126 +3,135 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Samaae | Morocco x Italy</title>
-<meta name="description" content="Samaae - developer. C++, Lua and Python. Morocco and Italy.">
+<title>Samaae | Portfolio Dev</title>
+<meta name="description" content="Samaae - developer. C++, Lua and Python.">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='24' fill='%23c1272d'/><text x='50' y='68' font-size='58' text-anchor='middle' fill='white' font-family='Arial' font-weight='700'>S</text></svg>">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;700&family=Manrope:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
   :root{
-    --bg:#07090d;
-    --panel:rgba(14,18,26,.72);
-    --line:rgba(255,255,255,.12);
-    --text:#eef1f6;
-    --muted:#9aa4b5;
+    --bg:#0a0d14;
+    --glass:rgba(255,255,255,.07);
+    --glass-strong:rgba(255,255,255,.12);
+    --edge:rgba(255,255,255,.18);
+    --text:#f2f4f8;
+    --muted:#aab3c4;
     --red:#e2373f;
     --green:#14a85a;
-    --white:#ffffff;
-    --head:'Unbounded', 'Trebuchet MS', sans-serif;
-    --body:'Manrope', system-ui, -apple-system, 'Segoe UI', Arial, sans-serif;
+    --font:system-ui,-apple-system,'Segoe UI',Roboto,Arial,sans-serif;
   }
   *{box-sizing:border-box;margin:0;padding:0}
-  html{scroll-behavior:smooth;scroll-padding-top:80px}
-  body{background:var(--bg);color:var(--text);font-family:var(--body);line-height:1.6;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+  html{scroll-behavior:smooth;scroll-padding-top:84px}
+  body{font-family:var(--font);color:var(--text);line-height:1.6;background:var(--bg);overflow-x:hidden;-webkit-font-smoothing:antialiased}
+  /* static, cheap background: two colour glows */
+  body::before{content:"";position:fixed;inset:0;z-index:-1;
+    background:
+      radial-gradient(60vmax 60vmax at 0% 10%, rgba(226,55,63,.38), transparent 60%),
+      radial-gradient(60vmax 60vmax at 100% 90%, rgba(20,168,90,.36), transparent 60%),
+      radial-gradient(40vmax 40vmax at 50% 50%, rgba(255,255,255,.05), transparent 70%),
+      var(--bg)}
   a{color:inherit;text-decoration:none}
-  :focus-visible{outline:2px solid var(--white);outline-offset:3px;border-radius:6px}
+  :focus-visible{outline:2px solid #fff;outline-offset:3px;border-radius:8px}
 
-  #bg{position:fixed;inset:0;width:100%;height:100%;z-index:0;display:block}
+  .glass{background:var(--glass);border:1px solid var(--edge);border-radius:22px;
+    -webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);
+    box-shadow:0 10px 30px rgba(0,0,0,.25), inset 0 1px 0 rgba(255,255,255,.15)}
 
   /* NAV */
-  header{position:fixed;top:0;left:0;right:0;z-index:20;padding:calc(12px + env(safe-area-inset-top,0px)) 18px 12px;
-    display:flex;align-items:center;justify-content:space-between;gap:12px;
-    background:linear-gradient(to bottom,rgba(7,9,13,.85),rgba(7,9,13,0));backdrop-filter:blur(6px)}
-  .logo{display:flex;align-items:center;gap:10px;font-family:var(--head);font-weight:700;font-size:1.05rem;letter-spacing:.02em}
-  .logo svg{width:40px;height:40px;flex:none}
-  nav{display:flex;align-items:center;gap:6px}
-  nav a.link{padding:8px 12px;border-radius:999px;color:var(--muted);font-weight:500;font-size:.92rem;transition:color .2s,background .2s}
-  nav a.link:hover{color:var(--text);background:rgba(255,255,255,.07)}
-  .ig{display:inline-flex;align-items:center;gap:8px;padding:9px 16px;border-radius:999px;font-weight:700;font-size:.9rem;color:#fff;
-    background:linear-gradient(45deg,#f9a03c,#e1306c 50%,#833ab4);box-shadow:0 6px 22px rgba(225,48,108,.35);transition:transform .2s,box-shadow .2s}
-  .ig:hover{transform:translateY(-2px);box-shadow:0 10px 28px rgba(225,48,108,.5)}
-  .ig svg{width:18px;height:18px}
+  header{position:fixed;top:calc(10px + env(safe-area-inset-top,0px));left:50%;transform:translateX(-50%);z-index:10;
+    width:min(960px,calc(100% - 20px));display:flex;align-items:center;justify-content:space-between;padding:8px 10px 8px 14px;border-radius:999px}
+  .logo{display:flex;align-items:center;gap:10px;font-weight:800;font-size:1.05rem;letter-spacing:.01em}
+  .logo svg{width:34px;height:34px;flex:none}
+  nav{display:flex;align-items:center;gap:4px}
+  nav a.link{padding:8px 12px;border-radius:999px;color:var(--muted);font-size:.92rem;font-weight:600;transition:background .2s,color .2s}
+  nav a.link:hover{background:var(--glass-strong);color:var(--text)}
+  .ig{display:inline-flex;align-items:center;gap:7px;padding:9px 15px;border-radius:999px;font-weight:700;font-size:.9rem;color:#fff;
+    background:linear-gradient(45deg,#f9a03c,#e1306c 55%,#833ab4);transition:transform .2s}
+  .ig:hover{transform:translateY(-2px)}
+  .ig svg{width:17px;height:17px}
 
-  main{position:relative;z-index:5}
-  section{padding:96px 20px;max-width:1080px;margin:0 auto}
+  main{width:min(960px,100% - 28px);margin:0 auto}
+  section{padding:56px 0}
 
-  /* HERO */
-  .hero{min-height:100vh;min-height:100svh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding-top:110px;pointer-events:none}
-  .hero > *{pointer-events:auto}
-  .hero h1{font-family:var(--head);font-weight:700;font-size:clamp(2.6rem,10vw,6.4rem);line-height:1;letter-spacing:-.02em;
-    text-shadow:0 4px 40px rgba(0,0,0,.7)}
-  .hero .role{margin-top:18px;font-size:clamp(1rem,2.6vw,1.35rem);color:var(--text);min-height:2em;text-shadow:0 2px 20px rgba(0,0,0,.8)}
-  .hero .role b{color:var(--white);font-weight:700}
-  .caret{display:inline-block;width:2px;height:1.1em;background:var(--white);margin-left:3px;vertical-align:-3px;animation:blink 1s steps(1) infinite}
-  @keyframes blink{50%{opacity:0}}
-  .hero .cta{margin-top:30px;display:flex;gap:12px;flex-wrap:wrap;justify-content:center}
-  .btn{padding:13px 24px;border-radius:12px;font-weight:700;border:1px solid var(--line);background:rgba(10,13,19,.6);backdrop-filter:blur(8px);transition:transform .2s,border-color .2s}
-  .btn:hover{transform:translateY(-2px);border-color:rgba(255,255,255,.4)}
-  .btn.main{background:var(--white);color:#0a0d13;border-color:var(--white)}
-  .scroll-hint{position:absolute;bottom:calc(22px + env(safe-area-inset-bottom,0px));left:50%;transform:translateX(-50%);color:var(--muted);font-size:.8rem}
+  /* HERO: split flag card */
+  .hero{min-height:100vh;min-height:100svh;display:flex;align-items:center;padding-top:96px}
+  .split{position:relative;width:100%;height:clamp(340px,62vh,520px);display:grid;grid-template-columns:1fr 1fr;overflow:hidden;border-radius:30px;
+    border:1px solid var(--edge);box-shadow:0 20px 60px rgba(0,0,0,.45)}
+  .half{position:relative;overflow:hidden}
+  .half svg{position:absolute;inset:0;width:100%;height:100%;display:block}
+  .half::after{content:"";position:absolute;inset:0;background:linear-gradient(120deg,rgba(255,255,255,.25),rgba(255,255,255,0) 45%,rgba(0,0,0,.25))}
+  .chip{position:absolute;bottom:16px;z-index:2;padding:6px 14px;border-radius:999px;font-weight:700;font-size:.85rem;
+    background:rgba(10,13,20,.45);border:1px solid var(--edge);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px)}
+  .half.ma .chip{left:16px}
+  .half.it .chip{right:16px}
+  .center{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);z-index:3;width:min(86%,430px);text-align:center;padding:28px 22px;
+    background:rgba(12,16,24,.42);border:1px solid var(--edge);border-radius:26px;
+    -webkit-backdrop-filter:blur(18px) saturate(140%);backdrop-filter:blur(18px) saturate(140%);
+    box-shadow:0 16px 40px rgba(0,0,0,.35), inset 0 1px 0 rgba(255,255,255,.25)}
+  .center .big-logo{width:64px;height:64px;margin:0 auto 10px;display:block}
+  .center h1{font-size:clamp(2.2rem,8vw,3.4rem);line-height:1.05;font-weight:800;letter-spacing:-.02em}
+  .center p{margin-top:8px;color:var(--muted);font-size:1rem}
+  .cta{margin-top:18px;display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+  .btn{padding:11px 20px;border-radius:999px;font-weight:700;font-size:.92rem;border:1px solid var(--edge);background:var(--glass-strong);transition:transform .2s,background .2s}
+  .btn:hover{transform:translateY(-2px);background:rgba(255,255,255,.2)}
+  .btn.main{background:#fff;color:#0a0d14;border-color:#fff}
 
-  h2{font-family:var(--head);font-weight:500;font-size:clamp(1.5rem,4.5vw,2.3rem);margin-bottom:8px;letter-spacing:-.01em}
-  .sub{color:var(--muted);margin-bottom:34px;max-width:60ch}
+  h2{font-size:clamp(1.5rem,4.5vw,2rem);font-weight:800;margin-bottom:6px;letter-spacing:-.01em}
+  .sub{color:var(--muted);margin-bottom:24px;max-width:60ch}
 
   /* SKILLS */
-  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:18px}
-  .card{background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:24px;backdrop-filter:blur(10px);
-    transform-style:preserve-3d;transition:transform .15s ease-out,border-color .3s}
-  .card:hover{border-color:rgba(255,255,255,.3)}
-  .card .top{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
-  .card h3{font-family:var(--head);font-weight:500;font-size:1.25rem}
-  .card .pct{color:var(--muted);font-weight:700}
-  .card p{color:var(--muted);font-size:.95rem;margin-bottom:18px}
-  .bar{height:8px;border-radius:99px;background:rgba(255,255,255,.1);overflow:hidden}
-  .bar i{display:block;height:100%;width:0;border-radius:99px;transition:width 1.4s cubic-bezier(.2,.8,.2,1)}
-  .c1 .bar i{background:linear-gradient(90deg,#e2373f,#ff7a59)}
-  .c2 .bar i{background:linear-gradient(90deg,#3b6cff,#7aa2ff)}
-  .c3 .bar i{background:linear-gradient(90deg,#14a85a,#7be0a6)}
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:16px}
+  .skill{padding:22px}
+  .skill .top{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:8px}
+  .skill h3{font-size:1.25rem}
+  .skill .pct{color:var(--muted);font-weight:700}
+  .skill p{color:var(--muted);font-size:.95rem;margin-bottom:16px}
+  .bar{height:8px;border-radius:99px;background:rgba(255,255,255,.12);overflow:hidden}
+  .bar i{display:block;height:100%;width:var(--w);border-radius:99px;transform-origin:left;animation:fill 1.2s ease-out both}
+  .s1 .bar i{background:linear-gradient(90deg,#e2373f,#ff8a5c)}
+  .s2 .bar i{background:linear-gradient(90deg,#4776ff,#8aaaff)}
+  .s3 .bar i{background:linear-gradient(90deg,#14a85a,#7be0a6)}
+  @keyframes fill{from{transform:scaleX(0)}to{transform:scaleX(1)}}
 
-  /* VISITOR CHECK */
-  .check{background:var(--panel);border:1px solid var(--line);border-radius:20px;padding:26px;backdrop-filter:blur(10px)}
-  .stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;margin-bottom:22px}
-  .stat{background:rgba(255,255,255,.04);border:1px solid var(--line);border-radius:14px;padding:16px}
-  .stat small{display:block;color:var(--muted);font-size:.8rem;margin-bottom:4px}
-  .stat strong{font-size:1.15rem;word-break:break-all}
-  .badge{display:inline-block;padding:4px 12px;border-radius:99px;font-size:.95rem;font-weight:700}
-  .badge.ok{background:rgba(20,168,90,.2);color:#5fe6a0}
-  .badge.bad{background:rgba(226,55,63,.2);color:#ff8087}
-  .badge.wait{background:rgba(255,255,255,.1);color:var(--muted)}
-  ul.tests{list-style:none;display:grid;gap:8px;font-size:.92rem}
-  ul.tests li{display:flex;justify-content:space-between;gap:12px;padding:9px 12px;border-radius:10px;background:rgba(255,255,255,.03)}
-  ul.tests .y{color:#5fe6a0}
-  ul.tests .n{color:#ff8087}
-  .note{margin-top:16px;color:var(--muted);font-size:.82rem}
+  /* VISITOR */
+  .check{padding:22px}
+  .stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:12px;margin-bottom:18px}
+  .stat{padding:14px 16px;border-radius:16px;background:rgba(255,255,255,.05);border:1px solid var(--edge)}
+  .stat small{display:block;color:var(--muted);font-size:.8rem;margin-bottom:2px}
+  .stat strong{font-size:1.1rem;word-break:break-all}
+  .badge{display:inline-block;padding:3px 12px;border-radius:99px;font-weight:700;font-size:.95rem}
+  .badge.ok{background:rgba(20,168,90,.22);color:#6cf0ac}
+  .badge.bad{background:rgba(226,55,63,.22);color:#ff8a90}
+  .badge.wait{background:rgba(255,255,255,.12);color:var(--muted)}
+  ul.tests{list-style:none;display:grid;gap:6px;font-size:.9rem}
+  ul.tests li{display:flex;justify-content:space-between;gap:12px;padding:8px 12px;border-radius:12px;background:rgba(255,255,255,.04)}
+  .y{color:#6cf0ac;font-weight:700}.n{color:#ff8a90;font-weight:700}
+  .note{margin-top:14px;color:var(--muted);font-size:.8rem}
 
-  footer{position:relative;z-index:5;text-align:center;padding:40px 20px calc(40px + env(safe-area-inset-bottom,0px));color:var(--muted);font-size:.88rem;border-top:1px solid var(--line);background:rgba(7,9,13,.7)}
+  footer{text-align:center;padding:30px 16px calc(30px + env(safe-area-inset-bottom,0px));color:var(--muted);font-size:.85rem}
 
   @media (max-width:640px){
     nav a.link{display:none}
-    .logo span{font-size:.95rem}
-    section{padding:72px 16px}
+    .split{height:clamp(380px,66vh,520px);border-radius:24px}
+    .chip{bottom:12px;font-size:.78rem;padding:5px 11px}
+    .center{padding:22px 16px}
   }
   @media (prefers-reduced-motion:reduce){
     html{scroll-behavior:auto}
-    .caret{animation:none}
-    .bar i{transition:none}
+    .bar i{animation:none}
+  }
+  /* fallback if the browser has no backdrop-filter */
+  @supports not ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))){
+    .glass{background:rgba(30,36,48,.9)}
+    .center{background:rgba(12,16,24,.85)}
   }
 </style>
 </head>
 <body>
 
-<canvas id="bg" aria-hidden="true"></canvas>
-
-<header>
+<header class="glass">
   <a class="logo" href="#top" aria-label="Samaae home">
     <svg viewBox="0 0 100 100" aria-hidden="true">
-      <defs>
-        <linearGradient id="lg" x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0" stop-color="#e2373f"/><stop offset=".5" stop-color="#ffffff"/><stop offset="1" stop-color="#14a85a"/>
-        </linearGradient>
-      </defs>
-      <rect x="4" y="4" width="92" height="92" rx="26" fill="#0d1118" stroke="url(#lg)" stroke-width="4"/>
+      <defs><linearGradient id="lg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#e2373f"/><stop offset=".5" stop-color="#fff"/><stop offset="1" stop-color="#14a85a"/></linearGradient></defs>
+      <rect x="4" y="4" width="92" height="92" rx="26" fill="#0d1118" stroke="url(#lg)" stroke-width="5"/>
       <path d="M67 31c-4-6-11-9-18-9-10 0-17 6-17 14 0 21 36 11 36 30 0 9-8 15-19 15-9 0-17-4-21-11" fill="none" stroke="url(#lg)" stroke-width="9" stroke-linecap="round"/>
     </svg>
     <span>Samaae</span>
@@ -130,8 +139,8 @@
   <nav>
     <a class="link" href="#skills">Skills</a>
     <a class="link" href="#visitor">Visitor check</a>
-    <a class="ig" href="https://instagram.com/YOUR_INSTAGRAM_USERNAME" target="_blank" rel="noopener noreferrer" aria-label="Samaae on Instagram">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg>
+    <a class="ig" href="https://instagram.com/YOUR_INSTAGRAM_USERNAME" target="_blank" rel="noopener noreferrer">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg>
       Instagram
     </a>
   </nav>
@@ -139,41 +148,53 @@
 
 <main id="top">
   <section class="hero">
-    <h1>Samaae</h1>
-    <p class="role">I build things in <b id="typed"></b><span class="caret"></span></p>
-    <div class="cta">
-      <a class="btn main" href="#skills">See my skills</a>
-      <a class="btn" href="https://instagram.com/YOUR_INSTAGRAM_USERNAME" target="_blank" rel="noopener noreferrer">Follow on Instagram</a>
+    <div class="split">
+      <div class="half ma">
+        <svg viewBox="0 0 300 400" preserveAspectRatio="xMidYMid slice" aria-label="Flag of Morocco" role="img">
+          <rect width="300" height="400" fill="#c1272d"/>
+          <path d="M150 130 L181 225 L100 166 L200 166 L119 225 Z" fill="none" stroke="#006233" stroke-width="8" stroke-linejoin="miter"/>
+        </svg>
+        <span class="chip">Morocco</span>
+      </div>
+      <div class="half it">
+        <svg viewBox="0 0 300 400" preserveAspectRatio="xMidYMid slice" aria-label="Flag of Italy" role="img">
+          <rect width="100" height="400" x="0" fill="#009246"/>
+          <rect width="100" height="400" x="100" fill="#fff"/>
+          <rect width="100" height="400" x="200" fill="#ce2b37"/>
+        </svg>
+        <span class="chip">Italy</span>
+      </div>
+
+      <div class="center">
+        <svg class="big-logo" viewBox="0 0 100 100" aria-hidden="true">
+          <defs><linearGradient id="lg2" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#e2373f"/><stop offset=".5" stop-color="#fff"/><stop offset="1" stop-color="#14a85a"/></linearGradient></defs>
+          <rect x="4" y="4" width="92" height="92" rx="26" fill="#0d1118" stroke="url(#lg2)" stroke-width="5"/>
+          <path d="M67 31c-4-6-11-9-18-9-10 0-17 6-17 14 0 21 36 11 36 30 0 9-8 15-19 15-9 0-17-4-21-11" fill="none" stroke="url(#lg2)" stroke-width="9" stroke-linecap="round"/>
+        </svg>
+        <h1>Samaae</h1>
+        <p>Developer &middot; C++ &middot; Lua &middot; Python</p>
+        <div class="cta">
+          <a class="btn main" href="#skills">My skills</a>
+          <a class="btn" href="https://instagram.com/samaae.pr" target="_blank" rel="noopener noreferrer">Instagram</a>
+        </div>
+      </div>
     </div>
-    <div class="scroll-hint">Scroll down</div>
   </section>
 
   <section id="skills">
     <h2>Skills</h2>
-    <p class="sub">The languages I write code in. Move your mouse (or finger) over a card to tilt it.</p>
+    <p class="sub">The languages I write code in.</p>
     <div class="grid">
-      <article class="card c1" data-level="80">
-        <div class="top"><h3>C++</h3><span class="pct">80%</span></div>
-        <p>Performance-focused programs, game logic and low-level work.</p>
-        <div class="bar"><i></i></div>
-      </article>
-      <article class="card c2" data-level="85">
-        <div class="top"><h3>Lua</h3><span class="pct">85%</span></div>
-        <p>Scripting, game mods and lightweight automation.</p>
-        <div class="bar"><i></i></div>
-      </article>
-      <article class="card c3" data-level="90">
-        <div class="top"><h3>Python</h3><span class="pct">90%</span></div>
-        <p>Tools, bots, scripts and quick prototypes.</p>
-        <div class="bar"><i></i></div>
-      </article>
+      <article class="glass skill s1"><div class="top"><h3>C++</h3><span class="pct">80%</span></div><p>Fast programs, game logic and low-level work.</p><div class="bar"><i style="--w:80%"></i></div></article>
+      <article class="glass skill s2"><div class="top"><h3>Lua</h3><span class="pct">85%</span></div><p>Scripting, game mods and light automation.</p><div class="bar"><i style="--w:85%"></i></div></article>
+      <article class="glass skill s3"><div class="top"><h3>Python</h3><span class="pct">90%</span></div><p>Tools, bots, scripts and quick prototypes.</p><div class="bar"><i style="--w:90%"></i></div></article>
     </div>
   </section>
 
   <section id="visitor">
     <h2>Visitor check</h2>
-    <p class="sub">This page checks, in your own browser, whether you look like a real person or an automated bot, and shows the IP address your connection is using.</p>
-    <div class="check">
+    <p class="sub">Your browser checks whether you look like a real person or a bot, and shows the IP address your connection uses.</p>
+    <div class="glass check">
       <div class="stats">
         <div class="stat"><small>Status</small><strong id="status"><span class="badge wait">Checking...</span></strong></div>
         <div class="stat"><small>Bot score (0 = human)</small><strong id="score">-</strong></div>
@@ -181,263 +202,79 @@
         <div class="stat"><small>Location (approximate)</small><strong id="geo">Loading...</strong></div>
       </div>
       <ul class="tests" id="tests"></ul>
-      <p class="note">Everything runs in your browser. Nothing is saved or sent to the site owner. The IP lookup uses a free public service (ipify and ipwho.is). Browser-only bot checks are a good signal, not a guarantee.</p>
+      <p class="note">Runs only in your browser. Nothing is saved or sent to the site owner. The IP lookup uses free public services (ipify, ipwho.is). Browser-side checks are a signal, not a guarantee.</p>
     </div>
   </section>
 </main>
 
-<footer>&copy; <span id="year"></span> Samaae &middot; Morocco &amp; Italy</footer>
+<footer>&copy; <span id="year"></span> Created &middot; By &amp; Lionard </footer>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 <script>
 (function(){
   'use strict';
-  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   document.getElementById('year').textContent = new Date().getFullYear();
 
-  /* ---------- Typing effect ---------- */
-  var words = ['C++','Lua','Python'];
-  var tEl = document.getElementById('typed'), wi = 0, ci = 0, del = false;
-  function type(){
-    var w = words[wi];
-    if (reduce){ tEl.textContent = words.join(' / '); return; }
-    tEl.textContent = w.slice(0, ci);
-    if(!del && ci < w.length){ ci++; setTimeout(type, 130); }
-    else if(!del){ del = true; setTimeout(type, 1200); }
-    else if(ci > 0){ ci--; setTimeout(type, 70); }
-    else { del = false; wi = (wi+1) % words.length; setTimeout(type, 250); }
-  }
-  type();
-
-  /* ---------- Skill bars + card tilt ---------- */
-  var cards = document.querySelectorAll('.card');
-  if ('IntersectionObserver' in window){
-    var io = new IntersectionObserver(function(es){
-      es.forEach(function(e){
-        if(e.isIntersecting){ e.target.querySelector('.bar i').style.width = e.target.dataset.level + '%'; io.unobserve(e.target); }
-      });
-    }, {threshold:.4});
-    cards.forEach(function(c){ io.observe(c); });
-  } else { cards.forEach(function(c){ c.querySelector('.bar i').style.width = c.dataset.level + '%'; }); }
-
-  if(!reduce){
-    cards.forEach(function(c){
-      c.addEventListener('pointermove', function(e){
-        var r = c.getBoundingClientRect();
-        var x = (e.clientX - r.left)/r.width - .5, y = (e.clientY - r.top)/r.height - .5;
-        c.style.transform = 'perspective(700px) rotateY('+(x*12)+'deg) rotateX('+(-y*12)+'deg)';
-      });
-      c.addEventListener('pointerleave', function(){ c.style.transform = ''; });
-    });
-  }
-
-  /* ---------- 3D background: Morocco | Italy ---------- */
-  var canvas = document.getElementById('bg');
-  if (window.THREE){
-    var renderer = new THREE.WebGLRenderer({canvas:canvas, antialias:true, alpha:true});
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
-    var scene = new THREE.Scene();
-    scene.fog = new THREE.FogExp2(0x07090d, 0.035);
-    var camera = new THREE.PerspectiveCamera(50, 1, 0.1, 200);
-    camera.position.set(0, 0, 14);
-
-    scene.add(new THREE.AmbientLight(0xffffff, 0.75));
-    var sun = new THREE.DirectionalLight(0xffffff, 0.9);
-    sun.position.set(3, 5, 8); scene.add(sun);
-
-    function flagTexture(kind){
-      var c = document.createElement('canvas'); c.width = 768; c.height = 512;
-      var g = c.getContext('2d');
-      if(kind === 'ma'){
-        g.fillStyle = '#c1272d'; g.fillRect(0,0,768,512);
-        // pentagram
-        var cx = 384, cy = 262, R = 120, pts = [];
-        for(var i=0;i<5;i++){ var a = -Math.PI/2 + i*2*Math.PI/5; pts.push([cx+R*Math.cos(a), cy+R*Math.sin(a)]); }
-        g.strokeStyle = '#006233'; g.lineWidth = 15; g.lineJoin = 'miter'; g.lineCap = 'butt';
-        g.beginPath();
-        [0,2,4,1,3,0].forEach(function(k,idx){ idx ? g.lineTo(pts[k][0],pts[k][1]) : g.moveTo(pts[k][0],pts[k][1]); });
-        g.stroke();
-      } else {
-        g.fillStyle = '#009246'; g.fillRect(0,0,256,512);
-        g.fillStyle = '#ffffff'; g.fillRect(256,0,256,512);
-        g.fillStyle = '#ce2b37'; g.fillRect(512,0,256,512);
-      }
-      var t = new THREE.CanvasTexture(c);
-      t.anisotropy = 4;
-      return t;
-    }
-
-    function makeFlag(kind){
-      var group = new THREE.Group();
-      var geo = new THREE.PlaneGeometry(6, 4, 44, 28);
-      var mat = new THREE.MeshLambertMaterial({map: flagTexture(kind), side: THREE.DoubleSide});
-      var mesh = new THREE.Mesh(geo, mat);
-      mesh.position.x = 3; // pole on the left edge
-      group.add(mesh);
-      var pole = new THREE.Mesh(new THREE.CylinderGeometry(.07,.07,9,12), new THREE.MeshLambertMaterial({color:0xcfd5df}));
-      pole.position.set(0,-2.5,0); group.add(pole);
-      var knob = new THREE.Mesh(new THREE.SphereGeometry(.16,16,12), new THREE.MeshLambertMaterial({color:0xf2c14e}));
-      knob.position.set(0,2.05,0); group.add(knob);
-      group.userData = {mesh:mesh, base:geo.attributes.position.array.slice(), phase: kind==='ma' ? 0 : 1.7};
-      return group;
-    }
-    var flagMA = makeFlag('ma'), flagIT = makeFlag('it');
-    scene.add(flagMA, flagIT);
-
-    // star field in red / green / white
-    var N = 1400, pos = new Float32Array(N*3), col = new Float32Array(N*3);
-    var pal = [[.89,.22,.25],[.08,.66,.35],[1,1,1]];
-    for(var i=0;i<N;i++){
-      pos[i*3]   = (Math.random()-.5)*70;
-      pos[i*3+1] = (Math.random()-.5)*45;
-      pos[i*3+2] = (Math.random()-.5)*50 - 8;
-      var p = pal[(Math.random()*3)|0];
-      col[i*3]=p[0]; col[i*3+1]=p[1]; col[i*3+2]=p[2];
-    }
-    var pg = new THREE.BufferGeometry();
-    pg.setAttribute('position', new THREE.BufferAttribute(pos,3));
-    pg.setAttribute('color', new THREE.BufferAttribute(col,3));
-    var stars = new THREE.Points(pg, new THREE.PointsMaterial({size:.12, vertexColors:true, transparent:true, opacity:.85, depthWrite:false}));
-    scene.add(stars);
-
-    // glowing split halves behind the flags
-    function glow(color, x){
-      var m = new THREE.Mesh(new THREE.CircleGeometry(9, 48), new THREE.MeshBasicMaterial({color:color, transparent:true, opacity:.1, depthWrite:false}));
-      m.position.set(x, 0, -6); return m;
-    }
-    var gMA = glow(0xe2373f, -7), gIT = glow(0x14a85a, 7);
-    scene.add(gMA, gIT);
-
-    var mouse = {x:0, y:0}, vis = {w:20, h:12};
-    function layout(){
-      var w = window.innerWidth, h = window.innerHeight;
-      renderer.setSize(w, h, false);
-      camera.aspect = w/h; camera.updateProjectionMatrix();
-      var vh = 2*Math.tan(THREE.MathUtils.degToRad(camera.fov/2))*camera.position.z;
-      var vw = vh*camera.aspect;
-      vis.w = vw; vis.h = vh;
-      // each flag gets about 38% of the visible width, never taller than 38% of height
-      var s = Math.min((vw*0.36)/6, (vh*0.36)/4);
-      [flagMA, flagIT].forEach(function(f){ f.scale.setScalar(s); });
-      var portrait = w < h;
-      var y = portrait ? vh*0.16 : vh*0.02;
-      flagMA.position.set(-vw*0.47, y, 0);
-      flagIT.position.set( vw*0.47 - 6*s, y, 0);
-      gMA.position.set(-vw*0.32, y, -6); gIT.position.set(vw*0.32, y, -6);
-      gMA.scale.setScalar(Math.max(.6, s)); gIT.scale.setScalar(Math.max(.6, s));
-    }
-    window.addEventListener('resize', layout); layout();
-    window.addEventListener('pointermove', function(e){
-      mouse.x = (e.clientX/window.innerWidth - .5)*2;
-      mouse.y = (e.clientY/window.innerHeight - .5)*2;
-    }, {passive:true});
-
-    function wave(flag, t){
-      var d = flag.userData, arr = d.mesh.geometry.attributes.position.array, b = d.base;
-      for(var i=0;i<arr.length;i+=3){
-        var x = b[i], y = b[i+1];
-        var k = (x + 3)/6; // 0 at pole, 1 at free edge
-        arr[i+2] = (Math.sin(x*1.5 + t*2.2 + d.phase) * .35 + Math.sin(y*1.8 + t*1.6 + d.phase) * .12) * k;
-      }
-      d.mesh.geometry.attributes.position.needsUpdate = true;
-      d.mesh.geometry.computeVertexNormals();
-    }
-
-    var clock = new THREE.Clock(), running = true;
-    document.addEventListener('visibilitychange', function(){ running = !document.hidden; if(running) loop(); });
-    function loop(){
-      if(!running) return;
-      var t = reduce ? 0 : clock.getElapsedTime();
-      wave(flagMA, t); wave(flagIT, t);
-      flagMA.rotation.y = .35 + mouse.x*.12; flagIT.rotation.y = -.35 + mouse.x*.12;
-      flagMA.rotation.x = flagIT.rotation.x = mouse.y*.06;
-      stars.rotation.y = t*.015 + mouse.x*.05;
-      stars.rotation.x = mouse.y*.03;
-      camera.position.x += (mouse.x*.6 - camera.position.x)*.04;
-      camera.position.y += (-mouse.y*.4 - camera.position.y)*.04;
-      camera.lookAt(0,0,0);
-      renderer.render(scene, camera);
-      if(!reduce) requestAnimationFrame(loop);
-    }
-    loop();
-    if(reduce){ window.addEventListener('resize', function(){ running = true; loop(); }); }
-  }
-
-  /* ---------- Bot / human check ---------- */
-  var tests = [];
-  var interacted = false, interactions = 0;
-  ['mousemove','touchstart','pointerdown','keydown','scroll','wheel'].forEach(function(ev){
-    window.addEventListener(ev, function(){ interacted = true; interactions++; }, {passive:true});
+  /* ---- bot / human check ---- */
+  var interacted = false, tests = [];
+  var evs = ['mousemove','touchstart','pointerdown','keydown','scroll'];
+  evs.forEach(function(ev){
+    window.addEventListener(ev, function(){ if(!interacted){ interacted = true; render(true); } }, {passive:true});
   });
 
-  function runStaticTests(){
+  function build(){
     var ua = navigator.userAgent || '';
-    tests = [];
-    function add(label, bad, weight){ tests.push({label:label, bad:!!bad, w:weight}); }
-    add('No automation flag (navigator.webdriver)', navigator.webdriver === true, 5);
-    add('User agent is not a known bot or headless browser', /bot|crawl|spider|slurp|headless|phantom|selenium|puppeteer|playwright|python-requests|curl|wget|httpclient|scrapy|lighthouse/i.test(ua), 5);
-    add('Browser reports languages', !(navigator.languages && navigator.languages.length) , 2);
+    function add(label, bad, w){ tests.push({label:label, bad:!!bad, w:w}); }
+    add('No automation flag', navigator.webdriver === true, 5);
+    add('User agent is not a known bot', /bot|crawl|spider|slurp|headless|phantom|selenium|puppeteer|playwright|python-requests|curl|wget|scrapy|lighthouse/i.test(ua), 5);
+    add('Browser reports languages', !(navigator.languages && navigator.languages.length), 2);
     add('Screen size looks real', !(screen.width > 0 && screen.height > 0 && window.innerWidth > 0), 3);
-    add('Chrome object present (for Chrome browsers)', /Chrome\//.test(ua) && !/Edg|OPR|Android/.test(ua) && !window.chrome, 2);
-    var plugOk = (navigator.plugins && navigator.plugins.length > 0) || /Mobi|Android|iPhone|iPad|Firefox|Safari/i.test(ua) && !/Chrome\//.test(ua) || /Mobi|Android/i.test(ua);
-    add('Browser plugins / device profile looks normal', !plugOk, 1);
-    var gl = false; try{ var c = document.createElement('canvas'); gl = !!(c.getContext('webgl') || c.getContext('experimental-webgl')); }catch(e){}
-    add('WebGL graphics available', !gl, 2);
-    var sw = false; try{ sw = /SwiftShader|llvmpipe/i.test((function(){ var c=document.createElement('canvas'), g=c.getContext('webgl'); if(!g) return ''; var e=g.getExtension('WEBGL_debug_renderer_info'); return e? g.getParameter(e.UNMASKED_RENDERER_WEBGL):''; })()); }catch(e){}
-    add('Graphics card is not a software renderer', sw, 2);
+    add('Chrome object present (Chrome only)', /Chrome\//.test(ua) && !/Edg|OPR|Android/.test(ua) && !window.chrome, 2);
+    var renderer = '';
+    try{
+      var c = document.createElement('canvas'), g = c.getContext('webgl');
+      if(g){ var e = g.getExtension('WEBGL_debug_renderer_info'); if(e) renderer = g.getParameter(e.UNMASKED_RENDERER_WEBGL) || ''; }
+    }catch(err){}
+    add('Graphics card is not a software renderer', /SwiftShader|llvmpipe/i.test(renderer), 2);
   }
 
   function render(final){
     var score = 0;
     tests.forEach(function(t){ if(t.bad) score += t.w; });
-    var behaviorBad = final && !interacted;
-    var all = tests.slice();
-    all.push({label:'Real mouse, touch, keyboard or scroll activity', bad:behaviorBad, w:4, pending: !final && !interacted});
-    if(behaviorBad) score += 4;
-
+    var noAct = final && !interacted;
+    if(noAct) score += 4;
+    var rows = tests.concat([{label:'Real mouse, touch, keyboard or scroll activity', bad:noAct, pending:!final && !interacted}]);
     var ul = document.getElementById('tests'); ul.innerHTML = '';
-    all.forEach(function(t){
-      var li = document.createElement('li');
-      var l = document.createElement('span'); l.textContent = t.label;
-      var r = document.createElement('span');
-      if(t.pending){ r.textContent = 'waiting...'; }
-      else { r.textContent = t.bad ? 'Suspicious' : 'Pass'; r.className = t.bad ? 'n' : 'y'; }
-      li.appendChild(l); li.appendChild(r); ul.appendChild(li);
+    rows.forEach(function(t){
+      var li = document.createElement('li'), a = document.createElement('span'), b = document.createElement('span');
+      a.textContent = t.label;
+      if(t.pending){ b.textContent = 'waiting...'; } else { b.textContent = t.bad ? 'Suspicious' : 'Pass'; b.className = t.bad ? 'n' : 'y'; }
+      li.appendChild(a); li.appendChild(b); ul.appendChild(li);
     });
-
-    document.getElementById('score').textContent = score + ' / 26';
-    var s = document.getElementById('status');
-    var b = document.createElement('span'); b.className = 'badge';
-    if(!final && !interacted && score < 5){ b.className += ' wait'; b.textContent = 'Checking...'; }
-    else if(score >= 5){ b.className += ' bad'; b.textContent = 'Likely a bot'; }
-    else { b.className += ' ok'; b.textContent = 'Human visitor'; }
-    s.innerHTML = ''; s.appendChild(b);
+    document.getElementById('score').textContent = score + ' / 23';
+    var s = document.getElementById('status'), bd = document.createElement('span'); bd.className = 'badge';
+    if(!final && !interacted && score < 5){ bd.className += ' wait'; bd.textContent = 'Checking...'; }
+    else if(score >= 5){ bd.className += ' bad'; bd.textContent = 'Likely a bot'; }
+    else { bd.className += ' ok'; bd.textContent = 'Human visitor'; }
+    s.innerHTML = ''; s.appendChild(bd);
   }
-
-  runStaticTests(); render(false);
-  ['mousemove','touchstart','pointerdown','keydown','scroll'].forEach(function(ev){
-    window.addEventListener(ev, function once(){ render(true); window.removeEventListener(ev, once); }, {passive:true});
-  });
+  build(); render(false);
   setTimeout(function(){ render(true); }, 5000);
 
-  /* ---------- IP lookup ---------- */
+  /* ---- IP lookup ---- */
   var ipEl = document.getElementById('ip'), geoEl = document.getElementById('geo');
-  function timeout(ms){ return new Promise(function(_,rej){ setTimeout(function(){ rej(new Error('timeout')); }, ms); }); }
-  function getJSON(url){ return Promise.race([fetch(url).then(function(r){ if(!r.ok) throw new Error(r.status); return r.json(); }), timeout(6000)]); }
-
+  function getJSON(url){
+    return Promise.race([
+      fetch(url).then(function(r){ if(!r.ok) throw new Error(r.status); return r.json(); }),
+      new Promise(function(_,rej){ setTimeout(function(){ rej(new Error('timeout')); }, 6000); })
+    ]);
+  }
+  function showGeo(g){ geoEl.textContent = (g && g.success !== false) ? ([g.city, g.country].filter(Boolean).join(', ') || 'Unknown') : 'Unavailable'; }
   getJSON('https://api.ipify.org?format=json').then(function(d){
     ipEl.textContent = d.ip;
-    return getJSON('https://ipwho.is/' + encodeURIComponent(d.ip));
-  }).then(function(g){
-    if(g && g.success !== false){ geoEl.textContent = [g.city, g.country].filter(Boolean).join(', ') || 'Unknown'; }
-    else { geoEl.textContent = 'Unavailable'; }
+    return getJSON('https://ipwho.is/' + encodeURIComponent(d.ip)).then(showGeo).catch(function(){ geoEl.textContent = 'Unavailable'; });
   }).catch(function(){
-    if(ipEl.textContent === 'Loading...'){
-      getJSON('https://ipwho.is/').then(function(g){
-        ipEl.textContent = g.ip || 'Unavailable';
-        geoEl.textContent = [g.city, g.country].filter(Boolean).join(', ') || 'Unavailable';
-      }).catch(function(){ ipEl.textContent = 'Unavailable (blocked or offline)'; geoEl.textContent = 'Unavailable'; });
-    } else { geoEl.textContent = 'Unavailable'; }
+    getJSON('https://ipwho.is/').then(function(g){ ipEl.textContent = g.ip || 'Unavailable'; showGeo(g); })
+      .catch(function(){ ipEl.textContent = 'Unavailable (blocked or offline)'; geoEl.textContent = 'Unavailable'; });
   });
 })();
 </script>
