@@ -36,6 +36,17 @@
   .ig:active{transform:translateZ(70px) translateY(5px);box-shadow:0 3px 0 #5a1d52,0 8px 16px rgba(0,0,0,.55)}
   .ig svg{width:22px;height:22px}
 
+  .party{display:inline-block;margin-top:22px;padding:13px 24px;border:0;border-radius:16px;cursor:pointer;font:400 clamp(1.1rem,4.4vw,1.55rem) var(--spooky);letter-spacing:.06em;color:#14061f;
+    background:linear-gradient(180deg,#a8ff62,#4bc21f);transform:translateZ(90px);box-shadow:0 8px 0 #1f6b0b,0 16px 28px rgba(0,0,0,.55),0 0 30px rgba(120,255,60,.55);transition:transform .15s,box-shadow .15s}
+  .party:hover{transform:translateZ(90px) translateY(-3px)}
+  .party:active{transform:translateZ(90px) translateY(5px);box-shadow:0 3px 0 #1f6b0b,0 8px 16px rgba(0,0,0,.55)}
+  #fx{position:fixed;inset:0;z-index:4;pointer-events:none;overflow:hidden}
+  .fxi{position:absolute;line-height:1;will-change:transform,opacity;user-select:none;-webkit-user-select:none;filter:drop-shadow(0 6px 10px rgba(0,0,0,.5))}
+  .boo{position:absolute;left:50%;top:46%;white-space:nowrap;font-family:var(--spooky);font-size:clamp(5rem,30vw,19rem);color:#ff9a2e;text-shadow:0 8px 0 #6a2a00,0 0 60px rgba(255,122,24,.95)}
+  .flash{position:absolute;inset:0;background:radial-gradient(circle at 50% 50%,rgba(255,150,40,.85),rgba(120,0,160,.35) 60%,transparent 80%)}
+  main.shake{animation:shake .7s}
+  @keyframes shake{0%,100%{transform:translate(0,0)}15%{transform:translate(-12px,6px)}30%{transform:translate(10px,-8px)}45%{transform:translate(-8px,-4px)}60%{transform:translate(9px,7px)}80%{transform:translate(-5px,3px)}}
+
   #music{position:fixed;right:14px;bottom:calc(14px + env(safe-area-inset-bottom,0px));z-index:5;padding:11px 18px;border-radius:14px;font:700 .88rem var(--font);color:#fff;cursor:pointer;
     background:rgba(14,8,24,.8);border:1px solid rgba(255,122,24,.4);box-shadow:0 0 18px rgba(255,122,24,.3);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px)}
   #music:hover{background:rgba(255,122,24,.3)}
@@ -58,8 +69,10 @@
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg>
       Instagram
     </a>
+    <br><button class="party" id="party" type="button">Do you want to celebrate Halloween? &#127875;</button>
   </div></div>
 </main>
+<div id="fx" aria-hidden="true"></div>
 
 <div id="yt"><div id="ytp"></div></div>
 <button id="music" type="button" class="pulse">&#127925; Tap to play music</button>
@@ -70,7 +83,7 @@
   'use strict';
   /* ====== SETTINGS ====== */
   var BG_IMAGE = '';   /* put your picture here, e.g. 'background.jpg' (or a full image URL) */
-  var YT_URL   = 'https://youtu.be/60ItHLz5WEA?si=--2x0_s_jkl3gxsr';
+  var YT_URL   = 'https://youtu.be/86WF70ZlFMY?si=njJQ43Og1X_KtK36';
   var VOLUME   = 60;
 
   if(BG_IMAGE){ document.body.style.backgroundImage = 'url("' + BG_IMAGE + '")'; }
@@ -197,6 +210,74 @@
     var x = e.clientX / window.innerWidth - .5, y = e.clientY / window.innerHeight - .5;
     tilt.style.setProperty('--ry', (x * 22) + 'deg'); tilt.style.setProperty('--rx', (-y * 16) + 'deg');
   }, {passive:true});
+
+  /* ====== CELEBRATE: monsters + candy rain ====== */
+  var fx = document.getElementById('fx'), pbtn = document.getElementById('party'), mainEl = document.querySelector('main');
+  var MON = ['\uD83D\uDC7B','\uD83C\uDF83','\uD83E\uDDDF','\uD83E\uDDDB','\uD83D\uDC79','\uD83D\uDC7D','\uD83D\uDC80','\uD83E\uDD87','\uD83D\uDD77\uFE0F','\uD83E\uDDD9','\uD83D\uDE08','\uD83D\uDC7E','\uD83E\uDDDE','\uD83D\uDC3A'];
+  var CAN = ['\uD83C\uDF6C','\uD83C\uDF6D','\uD83C\uDF6B','\uD83C\uDF6A','\uD83C\uDF69','\uD83C\uDF61','\uD83E\uDDC1','\uD83C\uDF70'];
+  var busy = 0, MAXN = 120, ac;
+  function rnd(a, b){ return a + Math.random() * (b - a); }
+  function pick(a){ return a[Math.floor(Math.random() * a.length)]; }
+  function item(txt, size){
+    var d = document.createElement('span'); d.className = 'fxi'; d.textContent = txt; d.style.fontSize = size + 'px';
+    fx.appendChild(d); busy++; return d;
+  }
+  function fin(d){ return function(){ d.remove(); busy--; }; }
+  function monster(){
+    if(busy > MAXN) return;
+    var base = Math.min(window.innerWidth, window.innerHeight), size = Math.max(44, Math.min(rnd(.13, .3) * base, 170));
+    var d = item(pick(MON), size), rot = rnd(-35, 35);
+    d.style.left = rnd(1, 86) + 'vw'; d.style.top = rnd(3, 82) + 'vh';
+    d.animate([
+      {transform:'scale(0) rotate(0deg)', opacity:0},
+      {transform:'scale(1.4) rotate(' + rot + 'deg)', opacity:1, offset:.12},
+      {transform:'scale(1) rotate(' + (rot * .6) + 'deg)', opacity:1, offset:.22},
+      {transform:'scale(1.1) rotate(' + (-rot * .5) + 'deg)', opacity:1, offset:.65},
+      {transform:'scale(0) rotate(' + rot + 'deg)', opacity:0}
+    ], {duration:rnd(2200, 4200), easing:'ease-out'}).onfinish = fin(d);
+  }
+  function candy(){
+    if(busy > MAXN + 40) return;
+    var d = item(pick(CAN), rnd(28, 58)), sway = rnd(-70, 70);
+    d.style.left = rnd(0, 95) + 'vw'; d.style.top = '0';
+    d.animate([
+      {transform:'translate(0,-14vh) rotate(0deg)'},
+      {transform:'translate(' + sway + 'px,118vh) rotate(' + rnd(-720, 720) + 'deg)'}
+    ], {duration:rnd(3200, 6500), easing:'linear'}).onfinish = fin(d);
+  }
+  function stinger(){
+    try{
+      var C = window.AudioContext || window.webkitAudioContext; if(!C) return;
+      ac = ac || new C(); if(ac.state === 'suspended') ac.resume();
+      var o = ac.createOscillator(), g = ac.createGain(), t = ac.currentTime;
+      o.type = 'sawtooth'; o.frequency.setValueAtTime(520, t); o.frequency.exponentialRampToValueAtTime(70, t + .7);
+      g.gain.setValueAtTime(.16, t); g.gain.exponentialRampToValueAtTime(.001, t + .8);
+      o.connect(g); g.connect(ac.destination); o.start(); o.stop(t + .85);
+    }catch(e){}
+  }
+  var rounds = 0;
+  function celebrate(){
+    var i, small = window.innerWidth < 700, n = reduce ? 10 : (small ? 34 : 48), dur = reduce ? 4000 : 11000;
+    rounds++; pbtn.innerHTML = 'More monsters! &#128121;';
+    if(!reduce){ mainEl.classList.remove('shake'); void mainEl.offsetWidth; mainEl.classList.add('shake'); }
+    var fl = document.createElement('div'); fl.className = 'flash'; fx.appendChild(fl);
+    fl.animate([{opacity:1}, {opacity:0}], {duration:700, easing:'ease-out'}).onfinish = function(){ fl.remove(); };
+    var boo = document.createElement('div'); boo.className = 'boo'; boo.textContent = 'BOO!'; fx.appendChild(boo);
+    boo.animate([
+      {transform:'translate(-50%,-50%) scale(0) rotate(-10deg)', opacity:0},
+      {transform:'translate(-50%,-50%) scale(1.15) rotate(4deg)', opacity:1, offset:.25},
+      {transform:'translate(-50%,-50%) scale(1) rotate(-3deg)', opacity:1, offset:.7},
+      {transform:'translate(-50%,-50%) scale(2.2) rotate(0deg)', opacity:0}
+    ], {duration:1500, easing:'ease-out'}).onfinish = function(){ boo.remove(); };
+    stinger();
+    for(i = 0; i < n; i++) setTimeout(monster, i * (reduce ? 200 : 55));
+    for(i = 0; i < n / 2; i++) setTimeout(monster, 2500 + i * 130);
+    var t0 = Date.now(), iv = setInterval(function(){
+      candy(); if(!reduce && !small) candy();
+      if(Date.now() - t0 > dur) clearInterval(iv);
+    }, small ? 150 : 90);
+  }
+  pbtn.addEventListener('click', celebrate);
 
   /* ====== MUSIC FROM YOUTUBE ====== */
   function ytId(u){ var m = String(u).match(/(?:youtu\.be\/|v=|embed\/|shorts\/)([\w-]{11})/); return m ? m[1] : (/^[\w-]{11}$/.test(u) ? u : ''); }
